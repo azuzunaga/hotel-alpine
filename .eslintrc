@@ -1,0 +1,29 @@
+{
+    "extends": "react-app",
+    "rules": {
+        "arrow-spacing": ["error", { "before": true, "after": true }],
+        "indent": ["error", 2],
+        "comma-dangle": ["error", {
+          "objects": "only-multiline",
+          "arrays": "only-multiline",
+          "imports": "never",
+          "exports": "never",
+          "functions": "never"
+        }],
+        "semi": ["error", "always"],
+        "arrow-parens": ["error", "as-needed"],
+        "quotes": ["error", "single", { "allowTemplateLiterals": true }],
+        "template-curly-spacing": ["error", "never"],
+        "max-len": ["error", {
+            "code": 80,
+            "ignoreStrings": true
+        }],
+        // Uncomment if using Next.js or if React is set as a global var
+        "react/react-in-jsx-scope": "off",
+        "jsx-a11y/anchor-is-valid": [ "error", {
+            "components": [ "Link" ],
+            "specialLink": [ "hrefLeft", "hrefRight" ],
+            "aspects": ["preferButton" ]
+          }]
+    }    
+}
