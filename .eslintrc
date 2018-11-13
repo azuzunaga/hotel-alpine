@@ -1,5 +1,9 @@
 {
-    "extends": "react-app",
+    "extends": [
+        "react-app",
+        "plugin:import/errors",
+        "plugin:import/warnings"
+    ],
     "rules": {
         "arrow-spacing": ["error", { "before": true, "after": true }],
         "indent": ["error", 2],
