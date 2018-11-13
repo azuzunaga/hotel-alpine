@@ -1,3 +1,3 @@
 const Mutations = {};
 
-export default Mutations;
+module.exports = Mutations;
