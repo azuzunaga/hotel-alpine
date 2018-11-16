@@ -12,9 +12,10 @@ server.start(
     cors: {
       credentials: true,
       origin: process.env.FRONTEND_URL,
-    }
+    },
   },
   data => {
-    console.log(`Server is now running on http://localhost:${data.port}`);
-  }
+    const now = new Date().toLocaleString();
+    console.log(`${now} - Server ready on: http://localhost:${data.port}`);
+  },
 );
