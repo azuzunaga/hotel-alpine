@@ -1,7 +1,9 @@
+# import * from './generated/prisma.graphql'
+
 type Mutation {
-  mutate: String
+  createUser(data: UserCreateInput!): User!  
 }
 
 type Query {
-  query: String
+  locations(where: LocationWhereInput, orderBy: LocationOrderByInput): [Location]!  
 }

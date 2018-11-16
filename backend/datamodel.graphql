@@ -15,5 +15,4 @@ type Department {
 type Location {
   id: ID! @unique
   city: String!
-  country: String!
 }
