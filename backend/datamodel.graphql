@@ -1,4 +1,19 @@
 type User {
   id: ID! @unique
   name: String!
+  department: Department!
+  location: Location!
+  image: String!
+  title: String!
+}
+
+type Department {
+  id: ID! @unique
+  name: String!
+}
+
+type Location {
+  id: ID! @unique
+  city: String!
+  country: String!
 }
