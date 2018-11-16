@@ -4,7 +4,7 @@ import Meta from './Meta';
 import Header from './Header';
 
 const theme = {
-  red: '#F05D5E',
+  green: '#3D9D5E',
   black: '#393939',
   grey: '#3A3A3A',
   lightgrey: '#E1E1E1',
@@ -26,8 +26,8 @@ const Inner = styled.div`
 
 injectGlobal`
   @font-face {
-    font-family: 'radnika_next';
-    src: url('/static/radnikanext-medium-webfont.woff2') format('woff2');
+    font-family: 'Arvo', serif;
+    src: url('/static/Arvo-Regular.ttf') format('ttf');
     font-weight: normal;
     font-style: normal;
   }
@@ -43,13 +43,15 @@ injectGlobal`
     margin: 0;
     font-size: 1.5rem;
     line-height: 2;
-    font-family: 'radnika_next';
+    font-family: 'Arvo', serif;
   }
   a {
     text-decoration: none;
     color: ${theme.black};
   }
-  button {  font-family: 'radnika_next'; }
+  button {
+    font-family: 'Arvo', serif;
+  }
 `;
 
 class Page extends React.Component {
