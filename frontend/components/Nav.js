@@ -20,7 +20,7 @@ const Nav = ({ router }) => {
       <Link href={`/new${addPath}`}>
         <a>New {addPath}</a>
       </Link>
-      <Add addPath={addPath}/>
+      {router.asPath.includes('new') ? null : <Add addPath={addPath}/>}
     </NavStyles>
   );
 };
