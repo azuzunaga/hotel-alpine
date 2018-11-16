@@ -22,7 +22,7 @@ const Logo = styled.h1`
   transform: skew(-7deg);
   a {
     padding: 0.5rem 1rem;
-    background: ${props => props.theme.red};
+    background: ${props => props.theme.green};
     color: white;
     text-transform: uppercase;
     text-decoration: none;
@@ -45,11 +45,6 @@ const StyledHeader = styled.header`
       justify-content: center;
     }
   }
-  .sub-bar {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    border-bottom: 1px solid ${props => props.theme.lightgrey};
-  }
 `;
 
 const Header = () => (
@@ -61,9 +56,6 @@ const Header = () => (
         </Link>
       </Logo>
       <Nav />
-    </div>
-    <div className="sub-bar">
-      <p>Search</p>
     </div>
   </StyledHeader>
 );

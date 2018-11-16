@@ -6,6 +6,7 @@ const Meta = () => (
     <meta charSet="utf-8" />
     <link rel="shortcut icon" href="/static/favicon.ico" />
     <link rel="stylesheet" type="text/css" href="/static/nprogress.css" />
+    <link href="https://fonts.googleapis.com/css?family=Arvo" rel="stylesheet"></link>
     <title>Hotel Alpine</title>
   </Head>
 );
