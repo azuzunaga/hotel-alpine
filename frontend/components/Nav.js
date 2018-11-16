@@ -6,11 +6,14 @@ const Nav = () => (
     <Link href="/index">
       <a>Home</a>
     </Link>
-    <Link href="/index">
+    <Link href="/departments">
       <a>Departments</a>
     </Link>
-    <Link href="/index">
+    <Link href="/locations">
       <a>Locations</a>
+    </Link>
+    <Link href="/add">
+      <a>New Employee</a>
     </Link>
   </NavStyles>
 );
