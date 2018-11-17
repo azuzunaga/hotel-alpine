@@ -1,7 +1,23 @@
 # import * from './generated/prisma.graphql'
 
+input DepartmentCreateOneInput {
+  create: DepartmentCreateInput
+  connect: DepartmentWhereUniqueInput
+}
+
+input LocationCreateOneInput {
+  create: LocationCreateInput
+  connect: LocationWhereUniqueInput
+}
+
 type Mutation {
-  createUser(data: UserCreateInput!): User!  
+  createUser(
+    name: String!
+    department: DepartmentCreateOneInput!
+    location: LocationCreateOneInput!
+    image: String!
+    title: String!
+  ): User!
 }
 
 type Query {
