@@ -83,6 +83,7 @@ class CreateEmployee extends Component {
         {(createUser, { loading, error }) => (
           <Form onSubmit={async e => {
             e.preventDefault();
+            await createUser();
             Router.push({
               pathname: '/employees',
             });
@@ -139,7 +140,7 @@ class CreateEmployee extends Component {
                         value={this.state.department}
                         onChange={this.handleChange}
                       >
-                        <option value={this.state.department}>---</option>
+                        <option>---</option>
                         {data.departments.map(department => (
                           <option key={department.id} value={department.id}>
                             {department.name}
@@ -165,7 +166,7 @@ class CreateEmployee extends Component {
                         value={this.state.location}
                         onChange={this.handleChange}
                       >
-                        <option value={this.state.location}>---</option>
+                        <option>---</option>
                         {data.locations.map(location => (
                           <option key={location.id} value={location.id}>
                             {location.city}
