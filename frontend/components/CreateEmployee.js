@@ -46,12 +46,11 @@ export const CREATE_USER_MUTATION = gql`
 
 class CreateEmployee extends Component {
   state = {
-    name: 'Peter Sagan',
-    department: 'cjokl2dzg8utu0a64tdfqimic',
-    location: 'cjokl4pog8v2u0a64g6nr20ot',
-    // image: '/../static/avatar.png',
-    image: 'https://res.cloudinary.com/lucha/image/upload/v1542419809/hotelalpine/mqpwidyvhvgqeoogl7yd.jpg',
-    title: 'Chief Cycling Officer',
+    name: '',
+    department: '',
+    location: '',
+    image: '/../static/avatar.png',
+    title: '',
   }
 
   handleChange = e => {
@@ -140,7 +139,7 @@ class CreateEmployee extends Component {
                         value={this.state.department}
                         onChange={this.handleChange}
                       >
-                        {/* <option value={this.state.department}>---</option> */}
+                        <option value={this.state.department}>---</option>
                         {data.departments.map(department => (
                           <option key={department.id} value={department.id}>
                             {department.name}
@@ -166,7 +165,7 @@ class CreateEmployee extends Component {
                         value={this.state.location}
                         onChange={this.handleChange}
                       >
-                        {/* <option value={this.state.location}>---</option> */}
+                        <option value={this.state.location}>---</option>
                         {data.locations.map(location => (
                           <option key={location.id} value={location.id}>
                             {location.city}
