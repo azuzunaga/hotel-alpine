@@ -1,6 +1,8 @@
+import Employees from '../components/Employees';
+
 const Home = () => (
   <div>
-    <p>Welcome to Hotel Alpine</p>
+    <Employees />
   </div>
 );
 

@@ -23,4 +23,5 @@ type Mutation {
 type Query {
   locations: [Location]!
   departments: [Department]!
+  users(orderBy: UserOrderByInput): [User]!
 }
