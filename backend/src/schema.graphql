@@ -5,5 +5,6 @@ type Mutation {
 }
 
 type Query {
-  locations(where: LocationWhereInput, orderBy: LocationOrderByInput): [Location]!  
+  locations: [Location]!
+  departments: [Department]!
 }
