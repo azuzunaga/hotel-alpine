@@ -31,13 +31,13 @@ const Form = styled.form`
     border: 1px solid black;
     &:focus {
       outline: 0;
-      border-color: ${props => props.theme.green};
+      border: 1.5px solid ${props => props.theme.blue};
     }
   }
   button,
   input[type='submit'] {
     width: auto;
-    background: ${props => props.theme.green};
+    background: ${props => props.theme.blue};
     color: white;
     border: 0;
     font-size: 2rem;
@@ -55,7 +55,7 @@ const Form = styled.form`
       height: 10px;
       content: '';
       display: block;
-      background-image: linear-gradient(to right, #3D9D5E 0%, #c364a2 50%, #3D9D5E 100%);
+      background-image: linear-gradient(to right, ${props => props.theme.blue} 0%, #99F677 50%, ${props => props.theme.blue} 100%);
     }
     &[aria-busy='true']::before {
       background-size: 50% auto;
