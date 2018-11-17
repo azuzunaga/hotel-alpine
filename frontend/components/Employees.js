@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Query } from 'react-apollo';
 import styled from 'styled-components';
 import gql from 'graphql-tag';
+import Employee from './Employee';
 
 export const ALL_EMPLOYEES_QUERY = gql`
   query ALL_EMPLOYEES_QUERY {
@@ -35,7 +36,9 @@ class Employees extends Component {
             if (error) return <p>Error</p>;
             return (
               <div>
-                {data.users.map(user => <p key={user.id}>{user.name}</p>)}
+                {data.users.map(user => (
+                  <Employee key={user.id} employee={user} />
+                ))}
               </div>
             );
           }}
