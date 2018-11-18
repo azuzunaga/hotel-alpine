@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { Query, Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import Router from 'next/router';
-import { CdnApiUrl } from '../config';
+import ErrorMessage from './ErrorMessage';
+import { CdnApiUrl, randUserApi } from '../config';
 import Form from './styles/Form';
 import Avatar from './styles/Avatar';
+import { jobTitleGenerator, titleize, arrayPick } from '../lib/utils';
 
 export const ALL_LOCATIONS_QUERY = gql`
   query ALL_LOCATIONS_QUERY {
@@ -48,7 +50,9 @@ class CreateEmployee extends Component {
   state = {
     name: '',
     department: '',
+    departments: [],
     location: '',
+    locations: [],
     image: '/../static/avatar.png',
     title: '',
   }
@@ -77,109 +81,134 @@ class CreateEmployee extends Component {
     });
   }
 
+  randomUser = async client => {
+    const res = await fetch(randUserApi);
+    const resJson = await res.json();
+    const user = resJson.results[0];
+    console.log(client);
+
+    const name = `${titleize(user.name.first)} ${titleize(user.name.last)}`;
+    const image = user.picture.large;
+    const title = jobTitleGenerator();
+    const location = arrayPick(this.state.locations).id;
+    const department = arrayPick(this.state.departments).id;
+    this.setState({
+      name, title, image, location, department,
+    });
+  }
+
   render() {
     return (
       <Mutation mutation={CREATE_USER_MUTATION} variables={this.state}>
         {(createUser, { loading, error }) => (
-          <Form onSubmit={async e => {
-            e.preventDefault();
-            await createUser();
-            Router.push({
-              pathname: '/employees',
-            });
-          }}>
-            {error && <p>Error</p>}
-            <fieldset aria-busy={loading}>
-              <label htmlFor="file">
+          <div>
+            <button onClick={this.randomUser}>Generate Random User</button>
+            <Form onSubmit={async e => {
+              e.preventDefault();
+              await createUser();
+              Router.push({
+                pathname: '/employees',
+              });
+            }}>
+              {error && <ErrorMessage error={error} />}
+              <fieldset aria-busy={loading}>
+                <label htmlFor="file">
                   Image
-                <input
-                  type="file"
-                  id="file"
-                  name="file"
-                  placeholder="Upload an image"
-                  onChange={this.uploadFile}
-                />
-                <Avatar src={this.state.image} alt="Upload Preview" />
-              </label>
-              <label htmlFor="name">
+                  <input
+                    type="file"
+                    id="file"
+                    name="file"
+                    placeholder="Upload an image"
+                    onChange={this.uploadFile}
+                  />
+                  <Avatar src={this.state.image} alt="Upload Preview" />
+                </label>
+                <label htmlFor="name">
                 Full Name
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  placeholder="Name"
-                  required
-                  value={this.state.name}
-                  onChange={this.handleChange}
-                />
-              </label>
-              <label htmlFor="title">
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Name"
+                    required
+                    value={this.state.name}
+                    onChange={this.handleChange}
+                  />
+                </label>
+                <label htmlFor="title">
                 Title
-                <input
-                  type="text"
-                  id="title"
-                  name="title"
-                  placeholder="Title"
-                  required
-                  value={this.state.title}
-                  onChange={this.handleChange}
-                />
-              </label>
-              <Query query={ALL_DEPARTMENTS_QUERY}>
-                {({ loading, error, data }) => {
-                  if (loading) return <p>Loading...</p>;
-                  if (error) return <p>Error</p>;
-                  return (
-                    <label htmlFor="department">
+                  <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    placeholder="Title"
+                    required
+                    value={this.state.title}
+                    onChange={this.handleChange}
+                  />
+                </label>
+                <Query query={ALL_DEPARTMENTS_QUERY}>
+                  {({ loading, error, data }) => {
+                    if (loading) return <p>Loading...</p>;
+                    if (error) return <p>Error</p>;
+                    if (this.state.departments.length === 0) {
+                      this.setState({ departments: data.departments });
+                    }
+                    return (
+                      <label htmlFor="department">
                       Department
-                      <select
-                        type="select"
-                        id="department"
-                        name="department"
-                        required
-                        value={this.state.department}
-                        onChange={this.handleChange}
-                      >
-                        <option>---</option>
-                        {data.departments.map(department => (
-                          <option key={department.id} value={department.id}>
-                            {department.name}
-                          </option>
-                        ))}
-                      </ select>
-                    </label>
-                  );
-                }}
-              </Query>
-              <Query query={ALL_LOCATIONS_QUERY}>
-                {({ loading, error, data }) => {
-                  if (loading) return <p>Loading...</p>;
-                  if (error) return <p>Error</p>;
-                  return (
-                    <label htmlFor="location">
+                        <select
+                          type="select"
+                          id="department"
+                          name="department"
+                          required
+                          value={this.state.department}
+                          onChange={this.handleChange}
+                        >
+                          <option>---</option>
+                          {data.departments.map(department => (
+                            <option key={department.id} value={department.id}>
+                              {department.name}
+                            </option>
+                          ))}
+                        </ select>
+                      </label>
+                    );
+                  }}
+                </Query>
+                <Query query={ALL_LOCATIONS_QUERY}>
+                  {({ loading, error, data }) => {
+                    if (loading) return <p>Loading...</p>;
+                    if (error) return <p>Error</p>;
+                    if (this.state.locations.length === 0) {
+                      this.setState({ locations: data.locations });
+                    }
+                    return (
+                      <label htmlFor="location">
                       Location
-                      <select
-                        type="select"
-                        id="location"
-                        name="location"
-                        required
-                        value={this.state.location}
-                        onChange={this.handleChange}
-                      >
-                        <option>---</option>
-                        {data.locations.map(location => (
-                          <option key={location.id} value={location.id}>
-                            {location.city}
-                          </option>
-                        ))}
-                      </ select>
-                    </label>
-                  );
-                }}
-              </Query>
-              <button type="submit">Submit</button>
-            </fieldset>
-          </Form>
+                        <select
+                          type="select"
+                          id="location"
+                          name="location"
+                          required
+                          value={this.state.location}
+                          onChange={this.handleChange}
+                        >
+                          <option>---</option>
+                          {data.locations.map(location => (
+                            <option key={location.id} value={location.id}>
+                              {location.city}
+                            </option>
+                          ))}
+                        </ select>
+                      </label>
+                    );
+                  }}
+                </Query>
+                <button type="submit">Submit</button>
+              </fieldset>
+            </Form>
+          </div>
         )}
       </ Mutation>
     );
