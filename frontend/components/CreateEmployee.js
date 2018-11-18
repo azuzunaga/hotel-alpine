@@ -7,6 +7,7 @@ import { CdnApiUrl, randUserApi } from '../config';
 import Form from './styles/Form';
 import Avatar from './styles/Avatar';
 import { jobTitleGenerator, titleize, arrayPick } from '../lib/utils';
+import { ALL_EMPLOYEES_QUERY } from './Employees';
 
 export const ALL_LOCATIONS_QUERY = gql`
   query ALL_LOCATIONS_QUERY {
@@ -85,24 +86,45 @@ class CreateEmployee extends Component {
     const res = await fetch(randUserApi);
     const resJson = await res.json();
     const user = resJson.results[0];
-    console.log(client);
 
-    const name = `${titleize(user.name.first)} ${titleize(user.name.last)}`;
-    const image = user.picture.large;
-    const title = jobTitleGenerator();
-    const location = arrayPick(this.state.locations).id;
-    const department = arrayPick(this.state.departments).id;
-    this.setState({
-      name, title, image, location, department,
+    // Get data from the Apollo cache
+    const { locations } = client.readQuery({
+      query: ALL_LOCATIONS_QUERY,
     });
+    const { departments } = client.readQuery({
+      query: ALL_DEPARTMENTS_QUERY,
+    });
+
+    const newState = {
+      name: `${titleize(user.name.first)} ${titleize(user.name.last)}`,
+      image: user.picture.large,
+      title: jobTitleGenerator(),
+      location: arrayPick(locations).id,
+      department: arrayPick(departments).id,
+    };
+    this.setState(newState);
   }
 
   render() {
     return (
-      <Mutation mutation={CREATE_USER_MUTATION} variables={this.state}>
-        {(createUser, { loading, error }) => (
+      <Mutation
+        mutation={CREATE_USER_MUTATION}
+        variables={this.state}
+        update={(cache, { data: { createUser } }) => {
+          const { users } = cache.readQuery({ query: ALL_EMPLOYEES_QUERY });
+          cache.writeQuery({
+            query: ALL_EMPLOYEES_QUERY,
+            data: { users: users.concat([createUser]) },
+          });
+        }}
+      >
+        {(createUser, { loading, error, client }) => (
           <div>
-            <button onClick={this.randomUser}>Generate Random User</button>
+            <button
+              onClick={() => this.randomUser(client)}
+            >
+              Generate Random User
+            </button>
             <Form onSubmit={async e => {
               e.preventDefault();
               await createUser();
@@ -151,9 +173,6 @@ class CreateEmployee extends Component {
                   {({ loading, error, data }) => {
                     if (loading) return <p>Loading...</p>;
                     if (error) return <p>Error</p>;
-                    if (this.state.departments.length === 0) {
-                      this.setState({ departments: data.departments });
-                    }
                     return (
                       <label htmlFor="department">
                       Department
@@ -180,9 +199,6 @@ class CreateEmployee extends Component {
                   {({ loading, error, data }) => {
                     if (loading) return <p>Loading...</p>;
                     if (error) return <p>Error</p>;
-                    if (this.state.locations.length === 0) {
-                      this.setState({ locations: data.locations });
-                    }
                     return (
                       <label htmlFor="location">
                       Location

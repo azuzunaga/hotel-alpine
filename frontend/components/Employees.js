@@ -35,7 +35,7 @@ class Employees extends Component {
   render() {
     return (
       <Center>
-        <Query query={ALL_EMPLOYEES_QUERY} fetchPolicy="network-only">
+        <Query query={ALL_EMPLOYEES_QUERY}>
           {({ data, loading, error }) => {
             if (loading) return <p>Loading...</p>;
             if (error) return <p>Error</p>;
