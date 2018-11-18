@@ -18,6 +18,7 @@ type Mutation {
     image: String!
     title: String!
   ): User!
+  deleteUser(id: ID!): User
 }
 
 type Query {

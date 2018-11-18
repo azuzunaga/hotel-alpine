@@ -6,8 +6,13 @@ const Mutations = {
           ...args,
         },
       },
+      info,
     );
     return user;
+  },
+  async deleteUser(parent, args, ctx, info) {
+    const where = { id: args.id };
+    return ctx.db.mutation.deleteUser({ where }, info);
   },
 };
 
