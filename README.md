@@ -7,13 +7,12 @@
 1. Run `npm install` in the main directory.
 
 #### Running the app locally
-1. Start the Prisma server:
-  * If you have Docker and Prisma already installed:
-    1. In the main directory, run `docker-compose up -d`.
-    2. Run `prisma deploy`
-  * If you don't have Docker or Prisma installed:
-    1. Follow the directions here: https://www.prisma.io/docs/get-started/01-setting-up-prisma-new-database-JAVASCRIPT-a002/. The Docker Compose file is already created, so ignore steps where it is mentioned.
-  *Note*: This configuration uses a PostgreSQL db.
+0. node version 10.13.0
+1. install graphql-cli
+2. install prisma
+3. create prisma account
+4. run prisma init, set to demo, config env variables
+5. run prisma deploy
 
 1. In your terminal, `cd` into the frontend directory and run `npm install`. Do the same with the backend directory.
 
