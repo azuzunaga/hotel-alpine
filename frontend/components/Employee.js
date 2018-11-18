@@ -1,11 +1,27 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-const UserCard = styled.div`
-  display: flex;
-  flex-direction: column;
+export const UserEntry = styled.div`
+  display: grid;
+  grid-template-columns: 60px 1fr 1fr 1fr 1fr;
+  margin: 5px 0;
+  &:hover {
+    background-color: ${props => props.theme.offWhite};
+  }
+  span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &.image-container {
+      justify-content: flex-end;
+    }
+  }
   img {
-    position: absolute;
+    border-radius: 50%;
+    height: 50px;
+  }
+  h4 {
+    margin: 0 auto;
   }
 `;
 
@@ -15,15 +31,15 @@ class Employee extends Component {
       name, department, location, image, title,
     } = this.props.employee;
     return (
-      <UserCard>
-        <img src={image} alt="User avatar" />
-        <section>
-          <h2>{name}</h2>
-          <h4>{title}</h4>
-          <h3>{department.name}</h3>
-          <h3>{location.city}</h3>
-        </section>
-      </UserCard>
+      <UserEntry>
+        <span className="image-container">
+          <img src={image} alt="User avatar" />
+        </span>
+        <span>{name}</span>
+        <span>{title}</span>
+        <span>{department.name}</span>
+        <span>{location.city}</span>
+      </UserEntry>
     );
   }
 }
