@@ -6,9 +6,9 @@ import Header from './Header';
 const theme = {
   blue: '#0A5EA0',
   black: '#393939',
-  grey: '#3A3A3A',
+  grey: '#666666',
   lightgrey: '#E1E1E1',
-  offWhite: '#EDEDED',
+  offWhite: '#F5F5FA',
   maxWidth: '1000px',
   bs: '0 12px 24px 0 rgba(0, 0, 0, 0.09)',
 };
@@ -16,6 +16,7 @@ const theme = {
 const StyledPage = styled.div`
   background: white;
   color: ${props => props.theme.black};
+  height: 100vh;
 `;
 
 const Inner = styled.div`
