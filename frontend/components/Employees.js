@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { Query } from 'react-apollo';
 import styled from 'styled-components';
 import gql from 'graphql-tag';
-import Employee from './Employee';
-import { UserEntry } from './Employee';
+import Employee, { UserEntry } from './Employee';
 
 export const ALL_EMPLOYEES_QUERY = gql`
   query ALL_EMPLOYEES_QUERY {
