@@ -11,14 +11,8 @@ input LocationCreateOneInput {
 }
 
 type Mutation {
-  createUser(
-    name: String!
-    department: DepartmentCreateOneInput!
-    location: LocationCreateOneInput!
-    image: String!
-    title: String!
-  ): User!
-  deleteUser(id: ID!): User
+  createUser(data: UserCreateInput!): User!
+  deleteUser(where: UserWhereUniqueInput!): User
 }
 
 type Query {
