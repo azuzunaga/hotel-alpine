@@ -35,13 +35,13 @@ export const CREATE_USER_MUTATION = gql`
     $image: String!
     $title: String!
   ) {
-    createUser(
+    createUser(data: {
       name: $name
       department: { connect: { id: $department } }
       location: { connect: { id: $location } }
       image: $image
       title: $title
-    ) {
+    }) {
       id
       name
       title

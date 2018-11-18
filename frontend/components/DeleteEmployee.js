@@ -5,7 +5,7 @@ import { ALL_EMPLOYEES_QUERY } from './Employees';
 
 export const DELETE_EMPLOYEE_MUTATION = gql`
   mutation DELETE_EMPLOYEE_MUTATION($id: ID!) {
-    deleteUser(id: $id) {
+    deleteUser(where: { id: $id }) {
       id
     }
   }
