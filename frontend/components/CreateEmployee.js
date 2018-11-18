@@ -43,6 +43,15 @@ export const CREATE_USER_MUTATION = gql`
       title: $title
     ) {
       id
+      name
+      title
+      image
+      location {
+        city
+      }
+      department {
+        name
+      }
     }
   }
 `;
@@ -51,11 +60,14 @@ class CreateEmployee extends Component {
   state = {
     name: '',
     department: '',
-    departments: [],
     location: '',
-    locations: [],
     image: '/../static/avatar.png',
     title: '',
+  }
+
+  setLoading = bool => {
+    const fieldset = document.querySelector('fieldset');
+    fieldset.setAttribute('aria-busy', bool);
   }
 
   handleChange = e => {
@@ -68,7 +80,7 @@ class CreateEmployee extends Component {
     const data = new FormData();
     data.append('file', files[0]);
     data.append('upload_preset', 'hotelalpine');
-
+    this.setLoading(true);
     const res = await fetch(
       CdnApiUrl,
       {
@@ -80,13 +92,14 @@ class CreateEmployee extends Component {
     this.setState({
       image: file.secure_url,
     });
+    this.setLoading(false);
   }
 
   randomUser = async client => {
+    this.setLoading(true);
     const res = await fetch(randUserApi);
     const resJson = await res.json();
     const user = resJson.results[0];
-
     // Get data from the Apollo cache
     const { locations } = client.readQuery({
       query: ALL_LOCATIONS_QUERY,
@@ -94,7 +107,6 @@ class CreateEmployee extends Component {
     const { departments } = client.readQuery({
       query: ALL_DEPARTMENTS_QUERY,
     });
-
     const newState = {
       name: `${titleize(user.name.first)} ${titleize(user.name.last)}`,
       image: user.picture.large,
@@ -103,6 +115,7 @@ class CreateEmployee extends Component {
       department: arrayPick(departments).id,
     };
     this.setState(newState);
+    this.setLoading(false);
   }
 
   render() {
