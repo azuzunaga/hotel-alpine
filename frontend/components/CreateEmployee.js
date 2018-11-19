@@ -159,7 +159,7 @@ class CreateEmployee extends Component {
                   <Avatar src={this.state.image} alt="Upload Preview" />
                 </label>
                 <label htmlFor="name">
-                Full Name
+                  Full Name
                   <input
                     type="text"
                     id="name"
@@ -171,7 +171,7 @@ class CreateEmployee extends Component {
                   />
                 </label>
                 <label htmlFor="title">
-                Title
+                  Title
                   <input
                     type="text"
                     id="title"
@@ -188,7 +188,7 @@ class CreateEmployee extends Component {
                     if (error) return <p>Error</p>;
                     return (
                       <label htmlFor="department">
-                      Department
+                        Department
                         <select
                           type="select"
                           id="department"
@@ -214,7 +214,7 @@ class CreateEmployee extends Component {
                     if (error) return <p>Error</p>;
                     return (
                       <label htmlFor="location">
-                      Location
+                        Location
                         <select
                           type="select"
                           id="location"
