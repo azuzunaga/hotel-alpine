@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPen } from '@fortawesome/free-solid-svg-icons';
 import DeleteEmployee from './DeleteEmployee';
 
 export const UserEntry = styled.div`
@@ -22,8 +24,8 @@ export const UserEntry = styled.div`
   h4 {
     margin: 0 auto;
   }
-  img {
-    border-radius: 50%;
+  svg:hover {
+    color: ${props => props.theme.blue};
   }
   .avatar {
     border-radius: 50%;
@@ -46,9 +48,14 @@ class Employee extends Component {
         <span>{department.name}</span>
         <span>{location.city}</span>
         <span className="image-container">
-          <Link href="/updateEmployee">
+          <Link
+            href={{
+              pathname: '/updateEmployee',
+              query: { id },
+            }}
+          >
             <a>
-              <img src="/../static/edit.svg" alt="Edit" />
+              <FontAwesomeIcon icon={faPen} />
             </a>
           </Link>
           <DeleteEmployee id={id}/>

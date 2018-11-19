@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 const AddButton = styled.div`
   display: flex;
@@ -18,7 +20,11 @@ const AddButton = styled.div`
 
 const Add = ({ addPath }) => (
   <Link href={`/new${addPath}`}>
-    <a><AddButton >+</ AddButton></a>
+    <a>
+      <AddButton >
+        <FontAwesomeIcon icon={faPlusCircle} />
+      </ AddButton>
+    </a>
   </Link>
 );
 

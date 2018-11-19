@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
+import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { ALL_EMPLOYEES_QUERY } from './Employees';
 
 export const DELETE_EMPLOYEE_MUTATION = gql`
@@ -9,6 +12,12 @@ export const DELETE_EMPLOYEE_MUTATION = gql`
       id
     }
   }
+`;
+
+const DeleteButton = styled.button`
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
 `;
 
 class DeleteEmployee extends Component {
@@ -28,9 +37,9 @@ class DeleteEmployee extends Component {
         update={this.updateCache}
       >
         {deleteUser => (
-          <button onClick={() => deleteUser()}>
-            <img src="/../static/delete.svg" alt="Delete" />
-          </button>
+          <DeleteButton onClick={() => deleteUser()}>
+            <FontAwesomeIcon icon={faTrash} size="lg" />
+          </DeleteButton>
         )}
       </Mutation>
     );
