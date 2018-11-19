@@ -13,10 +13,12 @@ input LocationCreateOneInput {
 type Mutation {
   createUser(data: UserCreateInput!): User!
   deleteUser(where: UserWhereUniqueInput!): User
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
 }
 
 type Query {
   locations: [Location]!
   departments: [Department]!
+  user(where: UserWhereUniqueInput!): User
   users(orderBy: UserOrderByInput): [User]!
 }
