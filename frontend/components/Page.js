@@ -5,6 +5,7 @@ import Header from './Header';
 
 const theme = {
   blue: '#0A5EA0',
+  darkblue: '#074170',
   black: '#393939',
   grey: '#666666',
   lightgrey: '#E1E1E1',

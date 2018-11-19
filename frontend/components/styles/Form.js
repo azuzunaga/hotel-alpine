@@ -43,7 +43,8 @@ const Form = styled.form`
     font-size: 2rem;
     font-weight: 600;
     padding: 0.5rem 1.2rem;
-    margin: 5px 0;
+    margin: 5px 15px 0 0;
+    cursor: pointer;
   }
   fieldset {
     border: 0;
@@ -62,6 +63,16 @@ const Form = styled.form`
       background-size: 50% auto;
       animation: ${loading} 0.5s linear infinite;
     }
+  }
+  a {
+    width: auto;
+    height: 35px;
+    background: ${props => props.theme.darkblue};
+    border: 0.5px solid ${props => props.theme.darkblue};
+    color: white;
+    font-size: 2rem;
+    font-weight: 600;
+    padding: 0.5rem 1.2rem;
   }
 `;
 
