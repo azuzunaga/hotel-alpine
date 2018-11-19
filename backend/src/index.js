@@ -4,9 +4,6 @@ const db = require('./db');
 
 const server = createServer();
 
-// TODO handle cookies
-// TODO populate current user
-
 server.start(
   {
     cors: {
