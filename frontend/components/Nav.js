@@ -6,6 +6,7 @@ import { urlFormatter } from '../lib/utils';
 
 const Nav = ({ router }) => {
   const addPath = urlFormatter(router.asPath);
+  const isNewOrUpdatePage = router.asPath.includes('new') || router.asPath.includes('update');
   return (
     <NavStyles>
       <Link href="/index">
@@ -20,7 +21,7 @@ const Nav = ({ router }) => {
       <Link href={`/new${addPath}`}>
         <a>New {addPath}</a>
       </Link>
-      {router.asPath.includes('new') ? null : <Add addPath={addPath}/>}
+      {isNewOrUpdatePage ? null : <Add addPath={addPath}/>}
     </NavStyles>
   );
 };
