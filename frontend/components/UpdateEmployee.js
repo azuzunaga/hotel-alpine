@@ -7,7 +7,6 @@ import Form from './styles/Form';
 import ErrorMessage from './ErrorMessage';
 import Avatar from './styles/Avatar';
 import { ALL_LOCATIONS_QUERY, ALL_DEPARTMENTS_QUERY } from './CreateEmployee';
-import { ALL_EMPLOYEES_QUERY } from './Employees';
 
 const GET_SINGLE_EMPLOYEE = gql`
   query GET_SINGLE_EMPLOYEE($id: ID!) {
@@ -17,9 +16,11 @@ const GET_SINGLE_EMPLOYEE = gql`
       title
       image
       department {
+        id
         name
       }
       location {
+        id
         city
       }
     }
@@ -50,9 +51,11 @@ const UPDATE_USER_MUTATION = gql`
       title
       image
       location {
+        id
         city
       }
       department {
+        id
         name
       }
     }
@@ -82,15 +85,8 @@ class UpdateEmployee extends Component {
             <Mutation
               mutation={UPDATE_USER_MUTATION}
               variables={{ ...this.state, id }}
-              // update={(cache, { data: { updateUser } }) => {
-              //   const { users } = cache.readQuery({ query: ALL_EMPLOYEES_QUERY });
-              //   cache.writeQuery({
-              //     query: ALL_EMPLOYEES_QUERY,
-              //     data: { users: users.concat([updateUser]) },
-              //   });
-              // }}
             >
-              {(updateUser, { loading, error, client }) => (
+              {(updateUser, { loading: loading1, error: error1 }) => (
                 <div>
                   <Form onSubmit={async e => {
                     e.preventDefault();
@@ -99,8 +95,8 @@ class UpdateEmployee extends Component {
                       pathname: '/employees',
                     });
                   }}>
-                    {error && <ErrorMessage error={error} />}
-                    <fieldset aria-busy={loading}>
+                    {error1 && <ErrorMessage error={error1} />}
+                    <fieldset aria-busy={loading1}>
                       <label htmlFor="file">
                         Image
                         <input
@@ -137,9 +133,9 @@ class UpdateEmployee extends Component {
                         />
                       </label>
                       <Query query={ALL_DEPARTMENTS_QUERY}>
-                        {({ loading, error, data }) => {
-                          if (loading) return <p>Loading...</p>;
-                          if (error) return <p>Error</p>;
+                        {({ loading: loading2, error: error2, data: data2 }) => {
+                          if (loading2) return <p>Loading...</p>;
+                          if (error2) return <p>Error</p>;
                           return (
                             <label htmlFor="department">
                               Department
@@ -151,7 +147,7 @@ class UpdateEmployee extends Component {
                                 defaultValue={department.id}
                                 onChange={this.handleChange}
                               >
-                                {data.departments.map(cDepartment => (
+                                {data2.departments.map(cDepartment => (
                                   <option key={cDepartment.id} value={cDepartment.id}>
                                     {cDepartment.name}
                                   </option>
@@ -162,9 +158,9 @@ class UpdateEmployee extends Component {
                         }}
                       </Query>
                       <Query query={ALL_LOCATIONS_QUERY}>
-                        {({ loading, error, data }) => {
-                          if (loading) return <p>Loading...</p>;
-                          if (error) return <p>Error</p>;
+                        {({ loading: loading3, error: error3, data: data3 }) => {
+                          if (loading3) return <p>Loading...</p>;
+                          if (error3) return <p>Error</p>;
                           return (
                             <label htmlFor="location">
                               Location
@@ -176,7 +172,7 @@ class UpdateEmployee extends Component {
                                 defaultValue={location.id}
                                 onChange={this.handleChange}
                               >
-                                {data.locations.map(cLocation => (
+                                {data3.locations.map(cLocation => (
                                   <option key={cLocation.id} value={cLocation.id}>
                                     {cLocation.city}
                                   </option>
