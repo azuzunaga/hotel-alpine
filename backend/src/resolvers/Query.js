@@ -11,6 +11,7 @@ const Query = {
       where: {
         OR: [
           { name_contains: search },
+          { title_contains: search },
           {
             department: {
               name_contains: search,

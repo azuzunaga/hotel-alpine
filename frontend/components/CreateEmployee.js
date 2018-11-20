@@ -67,6 +67,7 @@ const RandomUser = styled.button`
   font-size: 2rem;
   font-weight: 600;
   padding: 0.5rem 1.2rem;
+  cursor: pointer;
 `;
 
 class CreateEmployee extends Component {
@@ -153,7 +154,7 @@ class CreateEmployee extends Component {
             <RandomUser
               onClick={() => this.randomUser(client)}
             >
-              Generate Random User
+              Generate Random Employee
             </RandomUser>
             <Form onSubmit={async e => {
               e.preventDefault();
