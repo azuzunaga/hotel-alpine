@@ -59,6 +59,7 @@ Users can input employee information directly, or use the *Generate Random User*
 
 ### Missing features and improvements
 Some of the missing features and improvements that could be made to this application are:
+* Testing
 * Authentication, permission-based creation, deletion, and updating.
 * Debouncing user search input to reduce db queries.
 * Ability to edit and delete Locations and Departments.
