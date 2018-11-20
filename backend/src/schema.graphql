@@ -15,6 +15,7 @@ type Mutation {
   deleteUser(where: UserWhereUniqueInput!): User
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   createDepartment(data: DepartmentCreateInput!): Department!
+  createLocation(data: LocationCreateInput!): Location!
 }
 
 type Query {

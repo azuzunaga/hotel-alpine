@@ -47,6 +47,25 @@ const Mutations = {
       info,
     );
   },
+  async createLocation(parent, args, ctx, info) {
+    const { data } = args;
+    const locations = await ctx.db.query.locations(
+      {
+        where: {
+          city_contains: data.city,
+        },
+      },
+    );
+    if (locations.length !== 0) {
+      throw new Error('That office location already exists');
+    }
+    return ctx.db.mutation.createLocation(
+      {
+        data,
+      },
+      info,
+    );
+  },
 };
 
 module.exports = Mutations;
