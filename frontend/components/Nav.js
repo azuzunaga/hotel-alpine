@@ -12,7 +12,7 @@ const Nav = ({ router }) => {
     <NavStyles>
       <Link href={`/new${addPath}`}>
         <a>
-          <FontAwesomeIcon icon={faPlus} size="2x" />
+          <FontAwesomeIcon icon={faPlus} size="lg" />
           New {addPath}
         </a>
       </Link>
