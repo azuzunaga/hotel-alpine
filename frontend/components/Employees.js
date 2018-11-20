@@ -6,17 +6,8 @@ import Employee, { UserEntry } from './Employee';
 
 export const ALL_EMPLOYEES_QUERY = gql`
   query ALL_EMPLOYEES_QUERY($search: String) {
-    users (orderBy: name_ASC, where: {
-      OR: [
-        {name_contains: $search},
-        {department: {
-          name_contains: $search
-        }},
-        {location: {
-          city_contains: $search
-        }}
-      ]
-    }) {
+  users(search: $search)
+    {
       id
       name
       department {
@@ -72,13 +63,12 @@ const Spinner = styled.div`
   width: 18px;
 `;
 
-
 class Employees extends Component {
   state = {
     search: '',
   }
 
-  handleChange = (e, loading) => {
+  handleChange = e => {
     const { name, value } = e.target;
     this.setState({ [name]: value });
   }
@@ -86,7 +76,11 @@ class Employees extends Component {
   render() {
     return (
       <Center>
-        <Query query={ALL_EMPLOYEES_QUERY} variables={this.state}>
+        <Query
+          query={ALL_EMPLOYEES_QUERY}
+          variables={this.state}
+          fetchPolicy="network-only"
+        >
           {({ data, loading, error }) => {
             if (error) return <p>Error</p>;
             return (
@@ -99,9 +93,7 @@ class Employees extends Component {
                       id="search"
                       placeholder="Search all the things!"
                       value={this.state.search}
-                      onChange={e => {
-                        this.handleChange(e, loading);
-                      }}
+                      onChange={this.handleChange}
                     />
                   </label>
                   <Spinner id="spinner" className={loading} />

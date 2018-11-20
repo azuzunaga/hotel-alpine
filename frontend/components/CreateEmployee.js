@@ -3,6 +3,7 @@ import { Query, Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import Router from 'next/router';
 import Link from 'next/link';
+import styled from 'styled-components';
 import ErrorMessage from './ErrorMessage';
 import { CdnApiUrl, randUserApi } from '../config';
 import Form from './styles/Form';
@@ -55,6 +56,17 @@ export const CREATE_USER_MUTATION = gql`
       }
     }
   }
+`;
+
+const RandomUser = styled.button`
+  width: auto;
+  margin: 0 0 15px 0;
+  height: 35px;
+  background: ${props => props.theme.blue};
+  color: white;
+  font-size: 2rem;
+  font-weight: 600;
+  padding: 0.5rem 1.2rem;
 `;
 
 class CreateEmployee extends Component {
@@ -124,21 +136,23 @@ class CreateEmployee extends Component {
       <Mutation
         mutation={CREATE_USER_MUTATION}
         variables={this.state}
-        update={(cache, { data: { createUser } }) => {
-          const { users } = cache.readQuery({ query: ALL_EMPLOYEES_QUERY });
-          cache.writeQuery({
-            query: ALL_EMPLOYEES_QUERY,
-            data: { users: users.concat([createUser]) },
-          });
+        update={(client, { data: { createUser } }) => {
+          if (client.data.data.ROOT_QUERY.users) {
+            const { users } = client.readQuery({ query: ALL_EMPLOYEES_QUERY });
+            client.writeQuery({
+              query: ALL_EMPLOYEES_QUERY,
+              data: { users: users.concat([createUser]) },
+            });
+          }
         }}
       >
         {(createUser, { loading, error, client }) => (
           <div>
-            <button
+            <RandomUser
               onClick={() => this.randomUser(client)}
             >
               Generate Random User
-            </button>
+            </RandomUser>
             <Form onSubmit={async e => {
               e.preventDefault();
               await createUser();

@@ -14,19 +14,26 @@ export const DELETE_EMPLOYEE_MUTATION = gql`
   }
 `;
 
-const DeleteButton = styled.button`
+const DeleteButton = styled.a`
   border: 0;
   background-color: transparent;
   cursor: pointer;
 `;
 
 class DeleteEmployee extends Component {
-  updateCache = (cache, payload) => {
-    const data = cache.readQuery({ query: ALL_EMPLOYEES_QUERY });
+  updateCache = (client, payload) => {
+    const data = client.readQuery({
+      query: ALL_EMPLOYEES_QUERY,
+      variables: { search: '' },
+    });
     data.users = data.users.filter(user => (
       user.id !== payload.data.deleteUser.id
     ));
-    cache.writeQuery({ query: ALL_EMPLOYEES_QUERY, data });
+    client.writeQuery({
+      query: ALL_EMPLOYEES_QUERY,
+      variables: { search: '' },
+      data,
+    });
   }
 
   render() {
@@ -37,7 +44,10 @@ class DeleteEmployee extends Component {
         update={this.updateCache}
       >
         {deleteUser => (
-          <DeleteButton onClick={() => deleteUser()}>
+          <DeleteButton onClick={() => {
+            deleteUser();
+          }}
+          >
             <FontAwesomeIcon icon={faTrash} size="lg" />
           </DeleteButton>
         )}

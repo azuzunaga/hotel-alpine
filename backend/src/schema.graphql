@@ -22,5 +22,5 @@ type Query {
   locations: [Location]!
   departments: [Department]!
   user(where: UserWhereUniqueInput!): User
-  users(where: UserWhereInput, orderBy: UserOrderByInput): [User]!
+  users(search: String): [User]!
 }
