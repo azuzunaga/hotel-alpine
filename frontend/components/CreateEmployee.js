@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Query, Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
-import Router from 'next/router';
+import { Router, Link } from 'next';
 import ErrorMessage from './ErrorMessage';
 import { CdnApiUrl, randUserApi } from '../config';
 import Form from './styles/Form';
@@ -164,7 +164,7 @@ class CreateEmployee extends Component {
                     type="text"
                     id="name"
                     name="name"
-                    placeholder="Name"
+                    placeholder="Full Name"
                     required
                     value={this.state.name}
                     onChange={this.handleChange}
@@ -183,9 +183,9 @@ class CreateEmployee extends Component {
                   />
                 </label>
                 <Query query={ALL_DEPARTMENTS_QUERY}>
-                  {({ loading, error, data }) => {
-                    if (loading) return <p>Loading...</p>;
-                    if (error) return <p>Error</p>;
+                  {({ loading: loading1, error: error1, data: data1 }) => {
+                    if (loading1) return <p>Loading...</p>;
+                    if (error1) return <p>Error</p>;
                     return (
                       <label htmlFor="department">
                         Department
@@ -198,7 +198,7 @@ class CreateEmployee extends Component {
                           onChange={this.handleChange}
                         >
                           <option>---</option>
-                          {data.departments.map(department => (
+                          {data1.departments.map(department => (
                             <option key={department.id} value={department.id}>
                               {department.name}
                             </option>
@@ -209,9 +209,9 @@ class CreateEmployee extends Component {
                   }}
                 </Query>
                 <Query query={ALL_LOCATIONS_QUERY}>
-                  {({ loading, error, data }) => {
-                    if (loading) return <p>Loading...</p>;
-                    if (error) return <p>Error</p>;
+                  {({ loading: loading2, error: error2, data: data2 }) => {
+                    if (loading2) return <p>Loading...</p>;
+                    if (error2) return <p>Error</p>;
                     return (
                       <label htmlFor="location">
                         Location
@@ -224,7 +224,7 @@ class CreateEmployee extends Component {
                           onChange={this.handleChange}
                         >
                           <option>---</option>
-                          {data.locations.map(location => (
+                          {data2.locations.map(location => (
                             <option key={location.id} value={location.id}>
                               {location.city}
                             </option>
@@ -235,6 +235,13 @@ class CreateEmployee extends Component {
                   }}
                 </Query>
                 <button type="submit">Submit</button>
+                <Link
+                  href={{
+                    pathname: '/employees',
+                  }}
+                >
+                  <a>Cancel</a>
+                </Link>
               </fieldset>
             </Form>
           </div>
