@@ -137,13 +137,15 @@ class CreateEmployee extends Component {
         mutation={CREATE_USER_MUTATION}
         variables={this.state}
         update={(client, { data: { createUser } }) => {
-          if (client.data.data.ROOT_QUERY.users) {
-            const { users } = client.readQuery({ query: ALL_EMPLOYEES_QUERY });
-            client.writeQuery({
-              query: ALL_EMPLOYEES_QUERY,
-              data: { users: users.concat([createUser]) },
-            });
-          }
+          const { users } = client.readQuery({
+            query: ALL_EMPLOYEES_QUERY,
+            variables: { search: '' },
+          });
+          client.writeQuery({
+            query: ALL_EMPLOYEES_QUERY,
+            data: { users: users.concat([createUser]) },
+            variables: { search: '' },
+          });
         }}
       >
         {(createUser, { loading, error, client }) => (

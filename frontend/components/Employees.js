@@ -79,7 +79,6 @@ class Employees extends Component {
         <Query
           query={ALL_EMPLOYEES_QUERY}
           variables={this.state}
-          fetchPolicy="network-only"
         >
           {({ data, loading, error }) => {
             if (error) return <p>Error</p>;
