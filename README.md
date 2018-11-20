@@ -54,7 +54,7 @@ Employee search narrows down results by all available text fields, from Name to 
 #### Employee creation, updating and deleting
 Users can input employee information directly, or use the *Generate Random User* button to prefill user information. User uploaded images are modified to center on a person's face and cropped.
 
-![User creation](https://res.cloudinary.com/lucha/image/upload/v1542739084/hotelalpine/ha_user_creation.gif)
+![User creation](https://res.cloudinary.com/lucha/image/upload/v1542740013/hotelalpine/ha_user_creation.gif)
 
 
 ### Missing features and improvements
