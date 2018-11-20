@@ -49,7 +49,7 @@ On the backend, Prisma and GraphQL Yoga were chosen for the ease of database dep
 #### Employee directory and search
 Employee search narrows down results by all available text fields, from Name to Location.
 
-![User search](https://res.cloudinary.com/lucha/image/upload/v1542738412/hotelalpine/ha_user_search.gif)
+![User search](https://user-images.githubusercontent.com/17498598/48796126-a1a44a80-ecb3-11e8-9879-93a793d603ee.gif)
 
 #### Employee creation, updating and deleting
 Users can input employee information directly, or use the *Generate Random User* button to prefill user information. User uploaded images are modified to center on a person's face and cropped.
