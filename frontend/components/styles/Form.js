@@ -43,7 +43,7 @@ const Form = styled.form`
     font-size: 2rem;
     font-weight: 600;
     padding: 0.5rem 1.2rem;
-    margin: 5px 15px 0 0;
+    margin: 15px 15px 15px 0;
     cursor: pointer;
   }
   fieldset {
