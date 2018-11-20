@@ -62,5 +62,6 @@ Some of the missing features and improvements that could be made to this applica
 * Testing
 * Authentication, permission-based creation, deletion, and updating.
 * Debouncing user search input to reduce db queries.
+* Pagination on the employee index page.
 * Ability to edit and delete Locations and Departments.
 * Styling, in particular, making the site layout more responsive.
