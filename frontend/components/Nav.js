@@ -1,14 +1,21 @@
 import Link from 'next/link';
 import { withRouter } from 'next/router';
-import Add from './Add';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import NavStyles from './styles/NavStyles';
 import { urlFormatter } from '../lib/utils';
 
+
 const Nav = ({ router }) => {
   const addPath = urlFormatter(router.asPath);
-  const isNewOrUpdatePage = router.asPath.includes('new') || router.asPath.includes('update');
   return (
     <NavStyles>
+      <Link href={`/new${addPath}`}>
+        <a>
+          <FontAwesomeIcon icon={faPlus} size="2x" />
+          New {addPath}
+        </a>
+      </Link>
       <Link href="/index">
         <a>Home</a>
       </Link>
@@ -18,10 +25,6 @@ const Nav = ({ router }) => {
       <Link href="/locations">
         <a>Locations</a>
       </Link>
-      <Link href={`/new${addPath}`}>
-        <a>New {addPath}</a>
-      </Link>
-      {isNewOrUpdatePage ? null : <Add addPath={addPath}/>}
     </NavStyles>
   );
 };

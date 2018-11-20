@@ -12,6 +12,10 @@ export const UserEntry = styled.div`
   &:hover {
     background-color: ${props => props.theme.offWhite};
   }
+  @media (max-width: 700px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: 60px 1fr 1fr 1fr 1fr 30px;
+  }
   span {
     display: flex;
     align-items: center;

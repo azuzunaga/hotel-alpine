@@ -46,10 +46,16 @@ const NavStyles = styled.ul`
     &:hover,
     &:focus {
       outline: none;
+      svg {
+        color: ${props => props.theme.blue};
+      }
       &:after {
         width: calc(100% - 60px);
       }
     }
+  }
+  svg {
+    margin-right: 10px;
   }
   @media (max-width: 1300px) {
     border-top: 1px solid ${props => props.theme.lightgrey};
