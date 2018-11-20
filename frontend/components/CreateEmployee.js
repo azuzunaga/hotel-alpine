@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Query, Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
-import { Router, Link } from 'next';
+import Router from 'next/router';
+import Link from 'next/link';
 import ErrorMessage from './ErrorMessage';
 import { CdnApiUrl, randUserApi } from '../config';
 import Form from './styles/Form';
