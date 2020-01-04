@@ -5,14 +5,17 @@ type User {
   location: Location!
   image: String!
   title: String!
+	createdAt: DateTime!
 }
 
 type Department {
   id: ID! @unique
   name: String!
+	createdAt: DateTime!
 }
 
 type Location {
   id: ID! @unique
   city: String!
+	createdAt: DateTime!
 }
