@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Query } from 'react-apollo';
 import styled from 'styled-components';
 import gql from 'graphql-tag';
+import debounce from 'lodash.debounce';
 import Employee, { UserEntry } from './Employee';
 
 export const ALL_EMPLOYEES_QUERY = gql`
@@ -68,6 +69,14 @@ class Employees extends Component {
     search: '',
   }
 
+  search = {
+    search: '',
+  }
+
+  handleSearch = () => {
+    this.search.search = this.state.search;
+  }
+
   handleChange = e => {
     const { name, value } = e.target;
     this.setState({ [name]: value });
@@ -78,7 +87,7 @@ class Employees extends Component {
       <Center>
         <Query
           query={ALL_EMPLOYEES_QUERY}
-          variables={this.state}
+          variables={this.search}
         >
           {({ data, loading, error }) => {
             if (error) return <p>Error</p>;
@@ -93,6 +102,7 @@ class Employees extends Component {
                       placeholder="Search all the things!"
                       value={this.state.search}
                       onChange={this.handleChange}
+                      onKeyUp={() => debounce(this.handleSearch, 350)()}
                     />
                   </label>
                   <Spinner id="spinner" className={loading} />
